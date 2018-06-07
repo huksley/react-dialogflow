@@ -1,0 +1,704 @@
+{
+   "pipelines" : {
+      "rr-fe-storybook-dev" : {
+         "created" : "2018-05-21T19:07:40.805Z",
+         "metadata" : {
+            "created" : "2018-05-21T19:07:40.805Z",
+            "pipelineArn" : "arn:aws:codepipeline:eu-west-1:357436395740:rr-fe-storybook-dev",
+            "updated" : "2018-05-21T19:07:40.805Z"
+         },
+         "name" : "rr-fe-storybook-dev",
+         "version" : 1,
+         "updated" : "2018-05-21T19:07:40.805Z",
+         "state" : {
+            "updated" : "2018-05-21T19:07:40.805Z",
+            "stageStates" : [
+               {
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "cc82d114-d604-412a-a8d2-c85b31279914",
+                     "status" : "Succeeded"
+                  },
+                  "stageName" : "Source",
+                  "actionStates" : [
+                     {
+                        "actionName" : "Source",
+                        "latestExecution" : {
+                           "status" : "Succeeded",
+                           "lastStatusChange" : "2018-05-22T15:31:25.082Z"
+                        },
+                        "entityUrl" : "https://github.com/RamirentGroup/web-renewal-frontend/tree/master",
+                        "revisionUrl" : "https://github.com/RamirentGroup/web-renewal-frontend/commit/6accdf3151ca722f4736b2bedd647735691e22c1",
+                        "currentRevision" : {
+                           "created" : "2018-05-22T15:31:25.074Z",
+                           "revisionId" : "6accdf3151ca722f4736b2bedd647735691e22c1"
+                        }
+                     }
+                  ]
+               },
+               {
+                  "actionStates" : [
+                     {
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/projects/rr-fe-storybook-dev-build/view",
+                        "actionName" : "Build",
+                        "latestExecution" : {
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/builds/rr-fe-storybook-dev-build:d79ce0f5-1dc3-4973-b223-e089f9d77a65/view/new",
+                           "status" : "Succeeded",
+                           "lastStatusChange" : "2018-05-22T15:38:15.913Z",
+                           "externalExecutionId" : "rr-fe-storybook-dev-build:d79ce0f5-1dc3-4973-b223-e089f9d77a65"
+                        }
+                     }
+                  ],
+                  "latestExecution" : {
+                     "status" : "Succeeded",
+                     "pipelineExecutionId" : "cc82d114-d604-412a-a8d2-c85b31279914"
+                  },
+                  "stageName" : "Build",
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  }
+               },
+               {
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "76da4bf2-7a5f-46c2-bad5-4a39a7daf0fc",
+                     "status" : "InProgress"
+                  },
+                  "stageName" : "Deploy",
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  },
+                  "actionStates" : [
+                     {
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-fe-storybook-dev-cluster/services/rr-fe-storybook-dev-ecs/details",
+                        "actionName" : "Deploy",
+                        "latestExecution" : {
+                           "externalExecutionId" : "arn:aws:ecs:eu-west-1:357436395740:task-definition/rr-fe-storybook-dev-task:17",
+                           "lastStatusChange" : "2018-05-22T15:32:18.617Z",
+                           "status" : "InProgress",
+                           "summary" : "Cluster: rr-fe-storybook-dev-cluster service: rr-fe-storybook-dev-ecs status: IN_PROGRESS",
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-fe-storybook-dev-cluster/services/rr-fe-storybook-dev-ecs/deployments"
+                        }
+                     }
+                  ]
+               }
+            ],
+            "pipelineVersion" : 1,
+            "pipelineName" : "rr-fe-storybook-dev",
+            "created" : "2018-05-21T19:07:40.805Z"
+         },
+         "structure" : {
+            "version" : 1,
+            "artifactStore" : {
+               "location" : "rr-fe-storybook-dev",
+               "type" : "S3"
+            },
+            "name" : "rr-fe-storybook-dev",
+            "roleArn" : "arn:aws:iam::357436395740:role/rr-fe-storybook-dev",
+            "stages" : [
+               {
+                  "actions" : [
+                     {
+                        "actionTypeId" : {
+                           "provider" : "GitHub",
+                           "version" : "1",
+                           "owner" : "ThirdParty",
+                           "category" : "Source"
+                        },
+                        "runOrder" : 1,
+                        "name" : "Source",
+                        "configuration" : {
+                           "PollForSourceChanges" : "true",
+                           "Branch" : "master",
+                           "Owner" : "RamirentGroup",
+                           "Repo" : "web-renewal-frontend",
+                           "OAuthToken" : "****"
+                        },
+                        "inputArtifacts" : [],
+                        "outputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ]
+                     }
+                  ],
+                  "name" : "Source"
+               },
+               {
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ],
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "owner" : "AWS",
+                           "category" : "Build",
+                           "provider" : "CodeBuild",
+                           "version" : "1"
+                        },
+                        "name" : "Build",
+                        "configuration" : {
+                           "ProjectName" : "rr-fe-storybook-dev-build"
+                        },
+                        "inputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ]
+                     }
+                  ],
+                  "name" : "Build"
+               },
+               {
+                  "actions" : [
+                     {
+                        "configuration" : {
+                           "ClusterName" : "rr-fe-storybook-dev-cluster",
+                           "ServiceName" : "rr-fe-storybook-dev-ecs",
+                           "FileName" : "images.json"
+                        },
+                        "actionTypeId" : {
+                           "owner" : "AWS",
+                           "category" : "Deploy",
+                           "provider" : "ECS",
+                           "version" : "1"
+                        },
+                        "runOrder" : 1,
+                        "name" : "Deploy",
+                        "inputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ],
+                        "outputArtifacts" : []
+                     }
+                  ],
+                  "name" : "Deploy"
+               }
+            ]
+         }
+      },
+      "rr-be-api-dev" : {
+         "name" : "rr-be-api-dev",
+         "metadata" : {
+            "created" : "2018-05-21T19:24:37.055Z",
+            "updated" : "2018-05-21T19:24:37.055Z",
+            "pipelineArn" : "arn:aws:codepipeline:eu-west-1:357436395740:rr-be-api-dev"
+         },
+         "created" : "2018-05-21T19:24:37.055Z",
+         "version" : 1,
+         "structure" : {
+            "stages" : [
+               {
+                  "name" : "Source",
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "name" : "Source",
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "version" : "1",
+                           "provider" : "GitHub",
+                           "category" : "Source",
+                           "owner" : "ThirdParty"
+                        },
+                        "configuration" : {
+                           "PollForSourceChanges" : "true",
+                           "Branch" : "site-renewal",
+                           "Owner" : "RamirentGroup",
+                           "OAuthToken" : "****",
+                           "Repo" : "ddt-frontend-api"
+                        },
+                        "inputArtifacts" : []
+                     }
+                  ]
+               },
+               {
+                  "name" : "Build",
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ],
+                        "inputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "configuration" : {
+                           "ProjectName" : "rr-be-api-dev-build"
+                        },
+                        "runOrder" : 1,
+                        "name" : "Build",
+                        "actionTypeId" : {
+                           "provider" : "CodeBuild",
+                           "version" : "1",
+                           "owner" : "AWS",
+                           "category" : "Build"
+                        }
+                     }
+                  ]
+               },
+               {
+                  "name" : "Deploy",
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [],
+                        "configuration" : {
+                           "FileName" : "images.json",
+                           "ClusterName" : "rr-be-api-dev-cluster",
+                           "ServiceName" : "rr-be-api-dev-ecs"
+                        },
+                        "name" : "Deploy",
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "provider" : "ECS",
+                           "version" : "1",
+                           "owner" : "AWS",
+                           "category" : "Deploy"
+                        },
+                        "inputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ]
+                     }
+                  ]
+               }
+            ],
+            "name" : "rr-be-api-dev",
+            "version" : 1,
+            "artifactStore" : {
+               "location" : "rr-be-api-dev",
+               "type" : "S3"
+            },
+            "roleArn" : "arn:aws:iam::357436395740:role/rr-be-api-dev"
+         },
+         "state" : {
+            "created" : "2018-05-21T19:24:37.055Z",
+            "pipelineVersion" : 1,
+            "pipelineName" : "rr-be-api-dev",
+            "stageStates" : [
+               {
+                  "stageName" : "Source",
+                  "latestExecution" : {
+                     "status" : "Succeeded",
+                     "pipelineExecutionId" : "8c07d99e-eb25-4324-b131-64f427b6bd2b"
+                  },
+                  "actionStates" : [
+                     {
+                        "latestExecution" : {
+                           "lastStatusChange" : "2018-05-22T15:32:28.471Z",
+                           "status" : "Succeeded"
+                        },
+                        "actionName" : "Source",
+                        "entityUrl" : "https://github.com/RamirentGroup/ddt-frontend-api/tree/site-renewal",
+                        "revisionUrl" : "https://github.com/RamirentGroup/ddt-frontend-api/commit/2c72069db952fa494ccaa0fcaf619ef7b3a940c9",
+                        "currentRevision" : {
+                           "created" : "2018-05-22T15:32:28.466Z",
+                           "revisionId" : "2c72069db952fa494ccaa0fcaf619ef7b3a940c9"
+                        }
+                     }
+                  ]
+               },
+               {
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  },
+                  "stageName" : "Build",
+                  "latestExecution" : {
+                     "status" : "Succeeded",
+                     "pipelineExecutionId" : "8c07d99e-eb25-4324-b131-64f427b6bd2b"
+                  },
+                  "actionStates" : [
+                     {
+                        "latestExecution" : {
+                           "lastStatusChange" : "2018-05-22T15:35:40.800Z",
+                           "externalExecutionId" : "rr-be-api-dev-build:b21c9ee2-c464-4647-b407-beb278610f09",
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/builds/rr-be-api-dev-build:b21c9ee2-c464-4647-b407-beb278610f09/view/new",
+                           "status" : "Succeeded"
+                        },
+                        "actionName" : "Build",
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/projects/rr-be-api-dev-build/view"
+                     }
+                  ]
+               },
+               {
+                  "actionStates" : [
+                     {
+                        "latestExecution" : {
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-be-api-dev-cluster/services/rr-be-api-dev-ecs/deployments",
+                           "summary" : "Cluster: rr-be-api-dev-cluster service: rr-be-api-dev-ecs status: IN_PROGRESS",
+                           "status" : "InProgress",
+                           "lastStatusChange" : "2018-05-22T15:35:45.766Z",
+                           "externalExecutionId" : "arn:aws:ecs:eu-west-1:357436395740:task-definition/rr-be-api-dev-task:9"
+                        },
+                        "actionName" : "Deploy",
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-be-api-dev-cluster/services/rr-be-api-dev-ecs/details"
+                     }
+                  ],
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  },
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "8c07d99e-eb25-4324-b131-64f427b6bd2b",
+                     "status" : "InProgress"
+                  },
+                  "stageName" : "Deploy"
+               }
+            ],
+            "updated" : "2018-05-21T19:24:37.055Z"
+         },
+         "updated" : "2018-05-21T19:24:37.055Z"
+      },
+      "rr-be-pim-dev" : {
+         "metadata" : {
+            "created" : "2018-05-21T19:24:37.026Z",
+            "updated" : "2018-05-21T19:24:37.026Z",
+            "pipelineArn" : "arn:aws:codepipeline:eu-west-1:357436395740:rr-be-pim-dev"
+         },
+         "created" : "2018-05-21T19:24:37.026Z",
+         "name" : "rr-be-pim-dev",
+         "version" : 1,
+         "state" : {
+            "created" : "2018-05-21T19:24:37.026Z",
+            "pipelineVersion" : 1,
+            "pipelineName" : "rr-be-pim-dev",
+            "stageStates" : [
+               {
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "1c9745f3-d33c-4d5c-91e0-5b6cb847e988",
+                     "status" : "Succeeded"
+                  },
+                  "stageName" : "Source",
+                  "actionStates" : [
+                     {
+                        "actionName" : "Source",
+                        "latestExecution" : {
+                           "status" : "Succeeded",
+                           "lastStatusChange" : "2018-05-22T15:32:25.290Z"
+                        },
+                        "revisionUrl" : "https://github.com/RamirentGroup/ddt-product-service/commit/e865475478df0161eb5dc3733a3e75792cda81fd",
+                        "currentRevision" : {
+                           "revisionId" : "e865475478df0161eb5dc3733a3e75792cda81fd",
+                           "created" : "2018-05-22T15:32:25.277Z"
+                        },
+                        "entityUrl" : "https://github.com/RamirentGroup/ddt-product-service/tree/site-renewal"
+                     }
+                  ]
+               },
+               {
+                  "actionStates" : [
+                     {
+                        "latestExecution" : {
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/builds/rr-be-pim-dev-build:f87097b3-40a4-4552-8c4c-cd8f837cf0bd/view/new",
+                           "status" : "Succeeded",
+                           "lastStatusChange" : "2018-05-22T15:35:37.445Z",
+                           "externalExecutionId" : "rr-be-pim-dev-build:f87097b3-40a4-4552-8c4c-cd8f837cf0bd"
+                        },
+                        "actionName" : "Build",
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/projects/rr-be-pim-dev-build/view"
+                     }
+                  ],
+                  "stageName" : "Build",
+                  "latestExecution" : {
+                     "status" : "Succeeded",
+                     "pipelineExecutionId" : "1c9745f3-d33c-4d5c-91e0-5b6cb847e988"
+                  },
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  }
+               },
+               {
+                  "actionStates" : [
+                     {
+                        "latestExecution" : {
+                           "externalExecutionId" : "arn:aws:ecs:eu-west-1:357436395740:task-definition/rr-be-pim-dev-task:12",
+                           "lastStatusChange" : "2018-05-22T15:06:40.144Z",
+                           "status" : "InProgress",
+                           "summary" : "Cluster: rr-be-pim-dev-cluster service: rr-be-pim-dev-ecs status: IN_PROGRESS",
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-be-pim-dev-cluster/services/rr-be-pim-dev-ecs/deployments"
+                        },
+                        "actionName" : "Deploy",
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/ecs/home?#/clusters/rr-be-pim-dev-cluster/services/rr-be-pim-dev-ecs/details"
+                     }
+                  ],
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  },
+                  "latestExecution" : {
+                     "status" : "InProgress",
+                     "pipelineExecutionId" : "7cc49f60-4693-4dc0-acd7-44bfe66ec445"
+                  },
+                  "stageName" : "Deploy"
+               }
+            ],
+            "updated" : "2018-05-21T19:24:37.026Z"
+         },
+         "structure" : {
+            "stages" : [
+               {
+                  "name" : "Source",
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "configuration" : {
+                           "PollForSourceChanges" : "true",
+                           "Owner" : "RamirentGroup",
+                           "Branch" : "site-renewal",
+                           "OAuthToken" : "****",
+                           "Repo" : "ddt-product-service"
+                        },
+                        "runOrder" : 1,
+                        "name" : "Source",
+                        "actionTypeId" : {
+                           "category" : "Source",
+                           "owner" : "ThirdParty",
+                           "provider" : "GitHub",
+                           "version" : "1"
+                        },
+                        "inputArtifacts" : []
+                     }
+                  ]
+               },
+               {
+                  "name" : "Build",
+                  "actions" : [
+                     {
+                        "inputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "actionTypeId" : {
+                           "version" : "1",
+                           "provider" : "CodeBuild",
+                           "category" : "Build",
+                           "owner" : "AWS"
+                        },
+                        "runOrder" : 1,
+                        "name" : "Build",
+                        "configuration" : {
+                           "ProjectName" : "rr-be-pim-dev-build"
+                        },
+                        "outputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ]
+                     }
+                  ]
+               },
+               {
+                  "actions" : [
+                     {
+                        "configuration" : {
+                           "FileName" : "images.json",
+                           "ClusterName" : "rr-be-pim-dev-cluster",
+                           "ServiceName" : "rr-be-pim-dev-ecs"
+                        },
+                        "name" : "Deploy",
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "owner" : "AWS",
+                           "category" : "Deploy",
+                           "version" : "1",
+                           "provider" : "ECS"
+                        },
+                        "inputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ],
+                        "outputArtifacts" : []
+                     }
+                  ],
+                  "name" : "Deploy"
+               }
+            ],
+            "roleArn" : "arn:aws:iam::357436395740:role/rr-be-pim-dev",
+            "name" : "rr-be-pim-dev",
+            "version" : 1,
+            "artifactStore" : {
+               "location" : "rr-be-pim-dev",
+               "type" : "S3"
+            }
+         },
+         "updated" : "2018-05-21T19:24:37.026Z"
+      },
+      "rr-fe-dev" : {
+         "version" : 1,
+         "metadata" : {
+            "created" : "2018-05-17T07:44:50.863Z",
+            "pipelineArn" : "arn:aws:codepipeline:eu-west-1:357436395740:rr-fe-dev",
+            "updated" : "2018-05-17T07:44:50.863Z"
+         },
+         "created" : "2018-05-17T07:44:50.863Z",
+         "name" : "rr-fe-dev",
+         "updated" : "2018-05-17T07:44:50.863Z",
+         "structure" : {
+            "stages" : [
+               {
+                  "actions" : [
+                     {
+                        "outputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "inputArtifacts" : [],
+                        "name" : "Source",
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "provider" : "GitHub",
+                           "version" : "1",
+                           "owner" : "ThirdParty",
+                           "category" : "Source"
+                        },
+                        "configuration" : {
+                           "PollForSourceChanges" : "true",
+                           "Owner" : "RamirentGroup",
+                           "Branch" : "master",
+                           "OAuthToken" : "****",
+                           "Repo" : "web-renewal-frontend"
+                        }
+                     }
+                  ],
+                  "name" : "Source"
+               },
+               {
+                  "actions" : [
+                     {
+                        "configuration" : {
+                           "ProjectName" : "rr-fe-dev-build"
+                        },
+                        "runOrder" : 1,
+                        "actionTypeId" : {
+                           "version" : "1",
+                           "provider" : "CodeBuild",
+                           "owner" : "AWS",
+                           "category" : "Build"
+                        },
+                        "name" : "Build",
+                        "inputArtifacts" : [
+                           {
+                              "name" : "code"
+                           }
+                        ],
+                        "outputArtifacts" : [
+                           {
+                              "name" : "package"
+                           }
+                        ]
+                     }
+                  ],
+                  "name" : "Build"
+               }
+            ],
+            "name" : "rr-fe-dev",
+            "version" : 1,
+            "artifactStore" : {
+               "type" : "S3",
+               "location" : "rr-fe-dev"
+            },
+            "roleArn" : "arn:aws:iam::357436395740:role/rr-fe-dev"
+         },
+         "state" : {
+            "updated" : "2018-05-17T07:44:50.863Z",
+            "stageStates" : [
+               {
+                  "actionStates" : [
+                     {
+                        "actionName" : "Source",
+                        "latestExecution" : {
+                           "lastStatusChange" : "2018-05-22T15:31:23.254Z",
+                           "status" : "Succeeded"
+                        },
+                        "entityUrl" : "https://github.com/RamirentGroup/web-renewal-frontend/tree/master",
+                        "revisionUrl" : "https://github.com/RamirentGroup/web-renewal-frontend/commit/6accdf3151ca722f4736b2bedd647735691e22c1",
+                        "currentRevision" : {
+                           "created" : "2018-05-22T15:31:23.249Z",
+                           "revisionId" : "6accdf3151ca722f4736b2bedd647735691e22c1"
+                        }
+                     }
+                  ],
+                  "stageName" : "Source",
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "0ad7f891-bf3a-42e1-a917-dce360ce49b0",
+                     "status" : "Succeeded"
+                  }
+               },
+               {
+                  "actionStates" : [
+                     {
+                        "actionName" : "Build",
+                        "latestExecution" : {
+                           "externalExecutionUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/builds/rr-fe-dev-build:47bb51f1-c4ef-4331-af7c-899b966ef8ed/view/new",
+                           "status" : "Succeeded",
+                           "lastStatusChange" : "2018-05-22T15:35:38.879Z",
+                           "externalExecutionId" : "rr-fe-dev-build:47bb51f1-c4ef-4331-af7c-899b966ef8ed"
+                        },
+                        "entityUrl" : "https://eu-west-1.console.aws.amazon.com/codebuild/home?#/projects/rr-fe-dev-build/view"
+                     }
+                  ],
+                  "inboundTransitionState" : {
+                     "enabled" : true
+                  },
+                  "stageName" : "Build",
+                  "latestExecution" : {
+                     "pipelineExecutionId" : "0ad7f891-bf3a-42e1-a917-dce360ce49b0",
+                     "status" : "Succeeded"
+                  }
+               }
+            ],
+            "pipelineName" : "rr-fe-dev",
+            "pipelineVersion" : 1,
+            "created" : "2018-05-17T07:44:50.863Z"
+         }
+      }
+   },
+   "some": "value",
+   "ecs" : {
+      "rr-be-pim-dev-cluster" : {
+         "clusterName" : "rr-be-pim-dev-cluster",
+         "clusterArn" : "arn:aws:ecs:eu-west-1:357436395740:cluster/rr-be-pim-dev-cluster",
+         "activeServicesCount" : 1,
+         "status" : "ACTIVE",
+         "statistics" : [],
+         "runningTasksCount" : 1,
+         "registeredContainerInstancesCount" : 0,
+         "pendingTasksCount" : 0
+      },
+      "rr-be-api-dev-cluster" : {
+         "activeServicesCount" : 1,
+         "clusterArn" : "arn:aws:ecs:eu-west-1:357436395740:cluster/rr-be-api-dev-cluster",
+         "clusterName" : "rr-be-api-dev-cluster",
+         "pendingTasksCount" : 0,
+         "registeredContainerInstancesCount" : 0,
+         "runningTasksCount" : 2,
+         "statistics" : [],
+         "status" : "ACTIVE"
+      },
+      "rr-fe-storybook-dev-cluster" : {
+         "clusterName" : "rr-fe-storybook-dev-cluster",
+         "clusterArn" : "arn:aws:ecs:eu-west-1:357436395740:cluster/rr-fe-storybook-dev-cluster",
+         "activeServicesCount" : 1,
+         "status" : "ACTIVE",
+         "runningTasksCount" : 2,
+         "statistics" : [],
+         "registeredContainerInstancesCount" : 0,
+         "pendingTasksCount" : 0
+      }
+   }
+}
